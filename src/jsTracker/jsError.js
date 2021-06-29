@@ -1,13 +1,11 @@
-import tracker from '../util/tracker';
-import getLastEvent from '../util/getLastEvent';
-import getSelector from '../util/getSelector';
-import formatTime from '../util/formatTime';
+import log from './log';
+import {getLastEvent, getSelector, formatTime} from '../util/index';
 export function injectJsError() {
     //一般JS运行时错误使用window.onerror捕获处理
     window.addEventListener('error', function (event) {
         let lastEvent = getLastEvent();
         if (event.target && (event.target.src || event.target.href)) {
-            tracker.send({//资源加载错误
+            Log.send({//资源加载错误
                 kind: 'stability',//稳定性指标
                 type: 'error',//resource
                 errorType: 'resourceError',
@@ -17,7 +15,7 @@ export function injectJsError() {
                 selector: getSelector(event.path || event.target),//选择器
             })
         } else {
-            tracker.send({
+            log.send({
                 kind: 'stability',//稳定性指标
                 type: 'error',//error
                 errorType: 'jsError',//jsError
@@ -55,7 +53,7 @@ export function injectJsError() {
                 stack = getLines(reason.stack);
             }
         }
-        tracker.send({//未捕获的promise错误
+        log.send({//未捕获的promise错误
             kind: 'stability',//稳定性指标
             type: 'error',//jsError
             errorType: 'promiseError',//unhandledrejection

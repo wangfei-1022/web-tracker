@@ -1,5 +1,5 @@
-import tracker from '../util/tracker';
-import onload from '../util/onload';
+import log from './log';
+import { onload } from '../util/index';
 function getSelector(element) {
     var selector;
     if (element.id) {
@@ -31,7 +31,7 @@ export function blankScreen() {
         }
         if (emptyPoints >= 0) {
             let centerElements = document.elementsFromPoint(window.innerWidth / 2, window.innerHeight / 2)
-            tracker.send({
+            log.send({
                 kind: 'stability',
                 type: 'blank',
                 emptyPoints: "" + emptyPoints,

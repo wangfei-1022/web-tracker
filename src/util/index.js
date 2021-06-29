@@ -15,7 +15,7 @@ export function formatTime(time) {
     return `${time}`.split(".")[0]
 }
 
-const getSelector = function (path) {
+const getSelectorDom = function (path) {
     return path.reverse().filter(function (element) {
         return element !== window && element !== document;
     }).map(function (element) {
@@ -32,7 +32,7 @@ const getSelector = function (path) {
 }
 export function getSelector(pathsOrTarget) {
     if (Array.isArray(pathsOrTarget)) {
-        return getSelector(pathsOrTarget);
+        return getSelectorDom(pathsOrTarget);
     } else {
         var paths = [];
         var element = pathsOrTarget;
@@ -40,7 +40,7 @@ export function getSelector(pathsOrTarget) {
             paths.push(element);
             element = element.parentNode;
         }
-        return getSelector(paths);
+        return getSelectorDom(paths);
     }
 }
 

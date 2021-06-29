@@ -1,8 +1,5 @@
-import onload from '../util/onload';
-import tracker from '../util/tracker';
-import formatTime from '../util/formatTime';
-import getLastEvent from '../util/getLastEvent';
-import getSelector from '../util/getSelector';
+import log from './log';
+import { onload, formatTime, getLastEvent, getSelector } from '../util/index';
 export function timing() {
     let FMP, LCP;
     new PerformanceObserver((entryList, observer) => {
@@ -25,7 +22,7 @@ export function timing() {
             let inputDelay = firstInput.processingStart - firstInput.startTime;//处理延迟
             let duration = firstInput.duration;//处理耗时
             if (firstInput > 0 || duration > 0) {
-                tracker.send({
+                log.send({
                     kind: 'experience',
                     type: 'firstInputDelay',
                     inputDelay: inputDelay ? formatTime(inputDelay) : 0,
@@ -53,7 +50,7 @@ export function timing() {
                 domContentLoadedEventStart,
                 domContentLoadedEventEnd,
                 loadEventStart } = performance.timing;
-            tracker.send({
+            log.send({
                 kind: 'experience',
                 type: 'timing',
                 connectTime: connectEnd - connectStart,//TCP连接耗时
@@ -70,7 +67,7 @@ export function timing() {
             console.log('FCP', FCP);
             console.log('FMP', FMP);
             console.log('LCP', LCP);
-            tracker.send({
+            log.send({
                 kind: 'experience',
                 type: 'paint',
                 firstPaint: FP ? formatTime(FP.startTime) : 0,

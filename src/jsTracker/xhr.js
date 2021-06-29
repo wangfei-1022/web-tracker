@@ -1,5 +1,5 @@
 
-import tracker from '../util/tracker';
+import log from './log';
 export function injectXHR() {
     let XMLHttpRequest = window.XMLHttpRequest;
     let oldOpen = XMLHttpRequest.prototype.open;
@@ -20,7 +20,7 @@ export function injectXHR() {
                 let duration = Date.now() - start;
                 let status = this.status;
                 let statusText = this.statusText;
-                tracker.send({//未捕获的promise错误
+                log.send({//未捕获的promise错误
                     kind: 'stability',//稳定性指标
                     type: 'xhr',//xhr
                     eventType: type,//load error abort

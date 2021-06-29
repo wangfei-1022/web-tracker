@@ -1,20 +1,26 @@
-let host = 'cn-beijing.log.aliyuncs.com';
-let project = 'zhufengmonitor';
-let logstore = 'zhufengmonitor-store';
-var userAgent = require('user-agent')
+let host = 'cn-shanghai.log.aliyuncs.com';
+let project = '927230462';
+let logstore = '927230462-store';
+// var userAgent = require('user-agent')
 function getExtraData() {
     return {
         title: document.title,
         url: location.href,
         timestamp: Date.now(),
-        userAgent: userAgent.parse(navigator.userAgent).name
+        // userAgent: userAgent.parse(navigator.userAgent).name
     };
 }
 
-class SendTracker {
+class SendLog {
     constructor() {
         this.url = `http://${project}.${host}/logstores/${logstore}/track`;
         this.xhr = new XMLHttpRequest();
+    }
+    init(config){
+      this.host = config.host; 
+      this.project = config.host;
+      this.logstore = config.host;
+      this.url = `http://${config.project}.${config.host}/logstores/${config.logstore}/track`;
     }
     send(data = {}, callback) {
         let extraData = getExtraData();
@@ -45,4 +51,4 @@ class SendTracker {
     }
 }
 
-export default new SendTracker();
+export default new SendLog();

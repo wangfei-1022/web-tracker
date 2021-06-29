@@ -1,7 +1,7 @@
-import tracker from '../util/tracker';
+import log from './log';
 export function pv() {
     var connection = navigator.connection;
-    tracker.send({
+    log.send({
         kind: 'business',
         type: 'pv',
         effectiveType: connection.effectiveType, //网络环境
@@ -11,7 +11,7 @@ export function pv() {
     let startTime = Date.now();
     window.addEventListener('unload', () => {
         let stayTime = Date.now() - startTime;
-        tracker.send({
+        log.send({
             kind: 'business',
             type: 'stayTime',
             stayTime
