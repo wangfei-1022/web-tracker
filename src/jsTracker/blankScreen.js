@@ -1,5 +1,6 @@
 import log from './log';
 import { onload } from '../util/index';
+
 function getSelector(element) {
     var selector;
     if (element.id) {
@@ -11,6 +12,7 @@ function getSelector(element) {
     }
     return selector;
 }
+
 export function injectBlankScreen() {
     const wrapperSelectors = ['body', 'html', '#app'];
     let emptyPoints = 0;
@@ -42,5 +44,3 @@ export function injectBlankScreen() {
         }
     });
 }
-//screen.width  屏幕的宽度   screen.height 屏幕的高度
-//window.innerWidth 去除工具条与滚动条的窗口宽度 window.innerHeight 去除工具条与滚动条的窗口高度

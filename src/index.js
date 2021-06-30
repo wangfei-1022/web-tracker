@@ -3,35 +3,36 @@ import { injectXHR } from '../src/jsTracker/xhr';
 import { injectConsoleError } from "./jsTracker/console"
 import { injectBlankScreen } from '../src/jsTracker/blankScreen';
 import { injectPerf } from './jsTracker/perf';
-import { longTask } from '../src/jsTracker/longTask';
+import { injectLongTask } from '../src/jsTracker/longTask';
 import { injectPv } from '../src/jsTracker/injectPv';
 import log from '../src/jsTracker/log';
+import { merge } from './util/index'
 
 class JsTracker {
     constructor() {
-        this.log = log
+        this.log = log;
         this.config = {
-            JS_ERROR: true,
-            XHR_ERROR: true,
-            PERFORMANCE: false,
-            CONSOLE_ERROR: false, //针对vue
             PV: false,
+            PERFORMANCE: false,  //性能
+            JS_ERROR: true,      //JS
+            XHR_ERROR: true,       //接口请求
+            CONSOLE_ERROR: false, //针对vue
             TIME_ON_PAGE: false, //在线时长
-            LONG_TASK: false,
-            BLANK_SCREEN: false
-        }
+            LONG_TASK: false,  //卡顿
+            BLANK_SCREEN: false //白屏
+        };
     }
     init(config) {
-        this.config = config
-        this.log.init(config)
-        this._init()
+        this.config = merge(this.config, config);
+        this.log.init(this.config);
+        this._init();
     }
     _init() {
         //默认监听js错误、资源请求错误、接口请求错误
         injectJsError();
         injectXHR();
-        this.config && this.config.LONG_TASK && injectBlankScreen();
-        this.config && this.config.LONG_TASK && longTask();
+        this.config && this.config.BLANK_SCREEN && injectBlankScreen();
+        this.config && this.config.LONG_TASK && injectLongTask();
         this.config && this.config.PERFORMANCE && injectPerf();
         this.config && this.config.PV && injectPv();
         this.config && this.config.CONSOLE_ERROR && injectConsoleError();

@@ -1,7 +1,7 @@
-
 import log from './log';
 export function injectXHR() {
     let XMLHttpRequest = window.XMLHttpRequest;
+
     let oldOpen = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function (method, url, async, username, password) {
         if (!url.match(/logstores/) && !url.match(/sockjs/)) {
@@ -11,14 +11,18 @@ export function injectXHR() {
         }
         return oldOpen.apply(this, arguments);
     }
+
     let oldSend = XMLHttpRequest.prototype.send;
-    let start;
     XMLHttpRequest.prototype.send = function (body) {
         if (this.logData) {
-            start = Date.now();
+            let start = Date.now();
             let handler = (type) => (event) => {
                 let duration = Date.now() - start;
                 let status = this.status;
+                //匹配2xx或者3xx 则不提交日志
+                if (/^[2|3].{2}$/.test(status)) {
+                    return
+                }
                 let statusText = this.statusText;
                 log.send({//未捕获的promise错误
                     kind: 'STABILITY',//稳定性指标

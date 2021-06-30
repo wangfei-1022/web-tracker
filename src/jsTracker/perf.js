@@ -1,5 +1,6 @@
 import log from './log';
 import { onload, formatTime, getLastEvent, getSelector } from '../util/index';
+
 export function injectPerf() {
     let FMP, LCP;
     new PerformanceObserver((entryList, observer) => {

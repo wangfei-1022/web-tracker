@@ -55,3 +55,9 @@ export function onload(callback) {
 export const clog = (text) => {
     console.log(`%c ${text}`, 'color:red')
 }
+export function merge(obj, target) {
+    for (var key in target) {
+        obj[key] = target[key]
+    }
+    return obj
+}

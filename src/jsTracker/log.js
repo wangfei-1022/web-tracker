@@ -24,7 +24,7 @@ class SendLog {
     }
 
     _validate(data) {
-        if(!data.pcode){
+        if (!data.pcode) {
             clog('请先设置项目代码[pcode]');
             return false
         }
@@ -39,9 +39,9 @@ class SendLog {
                 logs[key] = "" + logs[key];
             }
         }
-        
+
         //校验发送的格式是否合格
-        if(!this._validate(logs)){
+        if (!this._validate(logs)) {
             return
         }
 

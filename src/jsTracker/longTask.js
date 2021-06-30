@@ -1,6 +1,7 @@
 import log from './log';
 import { formatTime, getLastEvent, getSelector } from '../util/index';
-export function longTask() {
+
+export function injectLongTask() {
     new PerformanceObserver((list) => {
         list.getEntries().forEach(entry => {
             if (entry.duration > 100) {

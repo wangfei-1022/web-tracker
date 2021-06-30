@@ -1,4 +1,5 @@
 import log from './log';
+
 export function injectPv() {
     var connection = navigator.connection;
     log.send({
