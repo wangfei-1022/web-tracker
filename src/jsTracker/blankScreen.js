@@ -11,8 +11,8 @@ function getSelector(element) {
     }
     return selector;
 }
-export function blankScreen() {
-    const wrapperSelectors = ['body', 'html', '#container', '.content'];
+export function injectBlankScreen() {
+    const wrapperSelectors = ['body', 'html', '#app'];
     let emptyPoints = 0;
     function isWrapper(element) {
         let selector = getSelector(element);
@@ -32,8 +32,8 @@ export function blankScreen() {
         if (emptyPoints >= 0) {
             let centerElements = document.elementsFromPoint(window.innerWidth / 2, window.innerHeight / 2)
             log.send({
-                kind: 'stability',
-                type: 'blank',
+                kind: 'STABILITY',
+                type: 'BLANK_SCREEN',
                 emptyPoints: "" + emptyPoints,
                 screen: window.screen.width + "x" + window.screen.height,
                 viewPoint: window.innerWidth + 'x' + window.innerHeight,

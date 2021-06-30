@@ -21,8 +21,8 @@ export function injectXHR() {
                 let status = this.status;
                 let statusText = this.statusText;
                 log.send({//未捕获的promise错误
-                    kind: 'stability',//稳定性指标
-                    type: 'xhr',//xhr
+                    kind: 'STABILITY',//稳定性指标
+                    type: 'XHR_ERROR',//xhr
                     eventType: type,//load error abort
                     pathname: this.logData.url,//接口的url地址
                     status: status + "-" + statusText,

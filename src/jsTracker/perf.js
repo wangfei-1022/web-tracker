@@ -1,6 +1,6 @@
 import log from './log';
 import { onload, formatTime, getLastEvent, getSelector } from '../util/index';
-export function timing() {
+export function injectPerf() {
     let FMP, LCP;
     new PerformanceObserver((entryList, observer) => {
         let perfEntries = entryList.getEntries();
@@ -23,8 +23,8 @@ export function timing() {
             let duration = firstInput.duration;//处理耗时
             if (firstInput > 0 || duration > 0) {
                 log.send({
-                    kind: 'experience',
-                    type: 'firstInputDelay',
+                    kind: 'PERFORMANCE',
+                    type: 'FIRST_INPUT_DELAY',
                     inputDelay: inputDelay ? formatTime(inputDelay) : 0,
                     duration: duration ? formatTime(duration) : 0,
                     startTime: firstInput.startTime,
@@ -51,8 +51,8 @@ export function timing() {
                 domContentLoadedEventEnd,
                 loadEventStart } = performance.timing;
             log.send({
-                kind: 'experience',
-                type: 'timing',
+                kind: 'PERFORMANCE',
+                type: 'TMING',
                 connectTime: connectEnd - connectStart,//TCP连接耗时
                 ttfbTime: responseStart - requestStart,//ttfb
                 responseTime: responseEnd - responseStart,//Response响应耗时
@@ -68,8 +68,8 @@ export function timing() {
             console.log('FMP', FMP);
             console.log('LCP', LCP);
             log.send({
-                kind: 'experience',
-                type: 'paint',
+                kind: 'PERFORMANCE',
+                type: 'PAINT',
                 firstPaint: FP ? formatTime(FP.startTime) : 0,
                 firstContentPaint: FCP ? formatTime(FCP.startTime) : 0,
                 firstMeaningfulPaint: FMP ? formatTime(FMP.startTime) : 0,

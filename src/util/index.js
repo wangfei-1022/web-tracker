@@ -52,3 +52,6 @@ export function onload(callback) {
     }
 };
 
+export const clog = (text) => {
+    console.log(`%c ${text}`, 'color:red')
+}

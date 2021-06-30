@@ -7,8 +7,8 @@ export function longTask() {
                 let lastEvent = getLastEvent();
                 requestIdleCallback(() => {
                     log.send({
-                        kind: 'experience',
-                        type: 'longTask',
+                        kind: 'PERFORMANCE',
+                        type: 'LONG_TASK',
                         eventType: lastEvent.type,
                         startTime: formatTime(entry.startTime),// 开始时间
                         duration: formatTime(entry.duration),// 持续时间
