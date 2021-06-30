@@ -25,6 +25,14 @@
             });
         }
     </script>
-    <script src="error.js"></script>
+    <script src="../dist/js-tracker.min.js"></script>
+    <script>
+        jsTracker.init({
+            host: 'cn-shanghai.log.aliyuncs.com',
+            project: 'web-tracker-test',
+            logstore: 'web-tracker-test-store',
+            pcode: "TEST"
+        })
+    </script>
 </body>
 </html>

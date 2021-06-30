@@ -1,16 +1,15 @@
-import tracker from '../util/tracker';
-import formatTime from '../util/formatTime';
-import getLastEvent from '../util/getLastEvent';
-import getSelector from '../util/getSelector';
-export function longTask() {
+import log from './log';
+import { formatTime, getLastEvent, getSelector } from '../util/index';
+
+export function injectLongTask() {
     new PerformanceObserver((list) => {
         list.getEntries().forEach(entry => {
             if (entry.duration > 100) {
                 let lastEvent = getLastEvent();
                 requestIdleCallback(() => {
-                    tracker.send({
-                        kind: 'experience',
-                        type: 'longTask',
+                    log.send({
+                        kind: 'PERFORMANCE',
+                        type: 'LONG_TASK',
                         eventType: lastEvent.type,
                         startTime: formatTime(entry.startTime),// 开始时间
                         duration: formatTime(entry.duration),// 持续时间

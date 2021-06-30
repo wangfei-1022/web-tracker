@@ -1,9 +1,10 @@
 {
-  "name": "web-tracker-sdk",
-  "version": "1.0.0",
+  "name": "web-tracker",
+  "version": "1.0.4",
   "description": "js tracker",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,15 @@
   "bugs": {
     "url": "https://github.com/927230462/web-tracker-sdk/issues"
   },
-  "homepage": "https://github.com/927230462/web-tracker-sdk#readme"
+  "homepage": "https://github.com/927230462/web-tracker-sdk#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "rollup": "^2.52.3",
+    "rollup-plugin-uglify": "^6.0.4"
+  },
+  "dependencies": {
+    "user-agent": "^1.0.4"
+  }
 }

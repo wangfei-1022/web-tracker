@@ -1,5 +1,6 @@
-import tracker from '../util/tracker';
-import onload from '../util/onload';
+import log from './log';
+import { onload } from '../util/index';
+
 function getSelector(element) {
     var selector;
     if (element.id) {
@@ -11,8 +12,9 @@ function getSelector(element) {
     }
     return selector;
 }
-export function blankScreen() {
-    const wrapperSelectors = ['body', 'html', '#container', '.content'];
+
+export function injectBlankScreen() {
+    const wrapperSelectors = ['body', 'html', '#app'];
     let emptyPoints = 0;
     function isWrapper(element) {
         let selector = getSelector(element);
@@ -31,9 +33,9 @@ export function blankScreen() {
         }
         if (emptyPoints >= 0) {
             let centerElements = document.elementsFromPoint(window.innerWidth / 2, window.innerHeight / 2)
-            tracker.send({
-                kind: 'stability',
-                type: 'blank',
+            log.send({
+                kind: 'STABILITY',
+                type: 'BLANK_SCREEN',
                 emptyPoints: "" + emptyPoints,
                 screen: window.screen.width + "x" + window.screen.height,
                 viewPoint: window.innerWidth + 'x' + window.innerHeight,
@@ -42,5 +44,3 @@ export function blankScreen() {
         }
     });
 }
-//screen.width  屏幕的宽度   screen.height 屏幕的高度
-//window.innerWidth 去除工具条与滚动条的窗口宽度 window.innerHeight 去除工具条与滚动条的窗口高度
