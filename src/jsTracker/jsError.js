@@ -5,7 +5,7 @@ export function injectJsError() {
     window.addEventListener('error', function (event) {
         let lastEvent = getLastEvent();
         if (event.target && (event.target.src || event.target.href)) {
-            Log.send({
+            log.send({
                 kind: 'STABILITY',
                 type: 'ERROR',
                 errorType: 'RESOURCE_ERROR',

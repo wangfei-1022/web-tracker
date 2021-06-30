@@ -4,11 +4,11 @@ import { injectConsoleError } from "./jsTracker/console"
 import { injectBlankScreen } from '../src/jsTracker/blankScreen';
 import { injectPerf } from './jsTracker/perf';
 import { injectLongTask } from '../src/jsTracker/longTask';
-import { injectPv } from '../src/jsTracker/injectPv';
+import { injectPv } from '../src/jsTracker/pv';
 import log from '../src/jsTracker/log';
 import { merge } from './util/index'
 
-class JsTracker {
+class WebTracker {
     constructor() {
         this.log = log;
         this.config = {
@@ -39,4 +39,4 @@ class JsTracker {
     }
 }
 
-export default new JsTracker();
+export default new WebTracker();

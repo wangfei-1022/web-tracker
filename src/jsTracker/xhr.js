@@ -24,20 +24,20 @@ export function injectXHR() {
                     return
                 }
                 let statusText = this.statusText;
-                log.send({//未捕获的promise错误
-                    kind: 'STABILITY',//稳定性指标
-                    type: 'XHR_ERROR',//xhr
-                    eventType: type,//load error abort
-                    pathname: this.logData.url,//接口的url地址
+                log.send({
+                    kind: 'STABILITY',
+                    type: 'XHR_ERROR',
+                    eventType: type,//LOAD ERROR ABORT
+                    pathname: this.logData.url, 
                     status: status + "-" + statusText,
-                    duration: "" + duration,//接口耗时
+                    duration: "" + duration, 
                     response: this.response ? JSON.stringify(this.response) : "",
                     params: body || ''
                 })
             }
-            this.addEventListener('load', handler('load'), false);
-            this.addEventListener('error', handler('error'), false);
-            this.addEventListener('abort', handler('abort'), false);
+            this.addEventListener('load', handler('LOAD'), false);
+            this.addEventListener('error', handler('ERROR'), false);
+            this.addEventListener('abort', handler('ABORT'), false);
         }
         oldSend.apply(this, arguments);
     };
