@@ -19,10 +19,12 @@ jsTracker.init({  //初始化
 
 
 # 联系方式
-QQ:927230462
+QQ:927230462  
+
 微信：wf927230462
 
 
 # License
-[MIT licensed.](https://opensource.org/licenses/MIT)
+[MIT licensed.](https://opensource.org/licenses/MIT)  
+
 Copyright (c) 2021-present
