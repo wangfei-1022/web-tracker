@@ -52,6 +52,13 @@ export function onload(callback) {
     }
 };
 
+export function getStackLines(stack) {
+    if (!stack) {
+        return '';
+    }
+    return stack.split('\n').slice(1).map(item => item.replace(/^\s+at\s+/g, '')).join('^');
+}
+
 export const clog = (text) => {
     console.log(`%c ${text}`, 'color:red')
 }

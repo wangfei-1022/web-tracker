@@ -1,11 +1,12 @@
-import { injectJsError } from '../src/jsTracker/jsError';
-import { injectXHR } from '../src/jsTracker/xhr';
-import { injectConsoleError } from "./jsTracker/console"
-import { injectBlankScreen } from '../src/jsTracker/blankScreen';
-import { injectPerf } from './jsTracker/perf';
-import { injectLongTask } from '../src/jsTracker/longTask';
-import { injectPv } from '../src/jsTracker/pv';
-import log from '../src/jsTracker/log';
+
+import { injectJsError } from '../src/webTracker/jsError';
+import { injectXHR } from '../src/webTracker/xhr';
+import { injectConsoleError } from "./webTracker/console"
+import { injectBlankScreen } from '../src/webTracker/blankScreen';
+import { injectPerf } from './webTracker/perf';
+import { injectLongTask } from '../src/webTracker/longTask';
+import { injectPv } from '../src/webTracker/pv';
+import log from '../src/webTracker/log';
 import { merge } from './util/index'
 
 class WebTracker {
@@ -31,11 +32,11 @@ class WebTracker {
         //默认监听js错误、资源请求错误、接口请求错误
         injectJsError();
         injectXHR();
+        injectConsoleError();
         this.config && this.config.BLANK_SCREEN && injectBlankScreen();
         this.config && this.config.LONG_TASK && injectLongTask();
         this.config && this.config.PERFORMANCE && injectPerf();
         this.config && this.config.PV && injectPv();
-        this.config && this.config.CONSOLE_ERROR && injectConsoleError();
     }
 }
 

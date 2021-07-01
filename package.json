@@ -1,7 +1,7 @@
 {
   "name": "web-tracker",
-  "version": "1.0.4",
-  "description": "js tracker",
+  "version": "1.0.10",
+  "description": "web tracker",
   "main": "./src/index.js",
   "scripts": {
     "build": "rollup -c",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/927230462/web-tracker-sdk.git"
+    "url": "git+https://github.com/927230462/web-tracker.git"
   },
   "keywords": [
     "web",
@@ -17,11 +17,11 @@
     "tracker"
   ],
   "author": "@废废",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/927230462/web-tracker-sdk/issues"
+    "url": "https://github.com/927230462/web-tracker/issues"
   },
-  "homepage": "https://github.com/927230462/web-tracker-sdk#readme",
+  "homepage": "https://github.com/927230462/web-tracker#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.2",
