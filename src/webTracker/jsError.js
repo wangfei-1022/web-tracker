@@ -11,7 +11,6 @@ export function injectJsError() {
                 errorType: 'RESOURCE_ERROR',
                 filename: event.target.src || event.target.href,
                 tagName: event.target.tagName,
-                timeStamp: formatTime(event.timeStamp),
                 selector: getSelector(event.path || event.target),
             })
         } else {
