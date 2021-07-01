@@ -6,8 +6,9 @@ class SendLog {
     }
 
     init(config) {
-        this.pcode = config.pcode
+        this.pcode = config.pcode;
         this.host = config.host;
+        this.version = config.version;
         this.project = config.host;
         this.logstore = config.host;
         this.url = `http://${config.project}.${config.host}/logstores/${config.logstore}/track`;
@@ -16,6 +17,7 @@ class SendLog {
     _getData() {
         return {
             pcode: this.pcode, //项目代码
+            version: this.version,
             title: document.title,
             url: location.href,
             timestamp: Date.now(),
@@ -26,6 +28,10 @@ class SendLog {
     _validate(data) {
         if (!data.pcode) {
             clog('请先设置项目代码[pcode]');
+            return false
+        }
+        if (!data.version) {
+            clog('请先设置项目版本号[version]');
             return false
         }
         return true

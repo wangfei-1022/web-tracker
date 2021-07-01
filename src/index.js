@@ -31,11 +31,11 @@ class WebTracker {
         //默认监听js错误、资源请求错误、接口请求错误
         injectJsError();
         injectXHR();
+        injectConsoleError();
         this.config && this.config.BLANK_SCREEN && injectBlankScreen();
         this.config && this.config.LONG_TASK && injectLongTask();
         this.config && this.config.PERFORMANCE && injectPerf();
         this.config && this.config.PV && injectPv();
-        this.config && this.config.CONSOLE_ERROR && injectConsoleError();
     }
 }
 
