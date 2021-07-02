@@ -6,7 +6,7 @@ import { injectPerf } from './webTracker/perf';
 import { injectLongTask } from '../src/webTracker/longTask';
 import { injectPv } from '../src/webTracker/pv';
 import log from '../src/webTracker/log';
-import { merge } from './util/index'
+import { merge } from './util/index';
 
 class WebTracker {
     constructor() {
@@ -22,11 +22,22 @@ class WebTracker {
             BLANK_SCREEN: false //白屏
         };
     }
-    init(config) {
-        this.config = merge(this.config, config);
+
+    install(Vue, options){
+        this.init(options)
+        Vue.prototype.webTracker = this
+    }
+
+    init(options) {
+        this.config = merge(this.config, options);
         this.log.init(this.config);
         this._init();
     }
+
+    send(data){
+        this.log.send(data);
+    }
+
     _init() {
         //默认监听js错误、资源请求错误、接口请求错误
         injectJsError();
