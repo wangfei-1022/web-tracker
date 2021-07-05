@@ -47,7 +47,7 @@ this.$webTracker.send({
 | elementType |  string  |    yes    | 元素名称                          |  针对错误日志类型，没有对应的元素名称，则默认值为Page                                  |
 | stack       |  string  |    no     | 堆栈信息                          |                                                                                  |
 | message     |  string  |    no     | 堆栈错误信息                      |                                                                                  |
-| fileName    |  string  |    no     | 文件名（当为资源加载错误的时候会有）|                                                                                   |  
+| fileName    |  string  |    no     | 文件名                            |  当为资源加载错误的时候会有                                       |  
 | ... |  string  |    no     | ... |  任意添加额外需要传递的数据                            |   
 
 # 错误日志类型
