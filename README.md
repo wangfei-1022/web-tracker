@@ -23,10 +23,10 @@ Vue.use(webTracker, {
 
 ``` javascript
 this.$webTracker.send({
-    logType: 'business',
-    logCode: this.$t('login.logIn'),
-    logName: this.$t('login.logIn'),
-    elementType: 'button',
+    logType: 'business', //必传
+    logCode: this.$t('login.logIn'), //必传
+    logName: this.$t('login.logIn'), //必传
+    elementType: 'button', //必传
     event: 'click'
 })
 ```
