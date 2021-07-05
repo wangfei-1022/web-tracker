@@ -28,7 +28,7 @@ export function injectXHR() {
                     logType: 'monitor',
                     logCode: 'XHR_ERROR',
                     logName: '接口错误',
-                    elementType: 'PAGE',
+                    elementType: 'page',
                     eventType: type,//LOAD ERROR ABORT
                     pathname: this.logData.url, 
                     status: status + "-" + statusText,

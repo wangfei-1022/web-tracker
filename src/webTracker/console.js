@@ -11,7 +11,7 @@ export function injectConsoleError() {
                     logCode: 'CONSOLE_ERROR',
                     logName: '控制台错误',
                     message: info,
-                    elementType: 'PAGE'
+                    elementType: 'page'
                 })
             } else if (typeof info === 'object') {
                 log.send({
@@ -20,7 +20,7 @@ export function injectConsoleError() {
                     logName: '控制台错误',
                     message: info.message,
                     stack: getStackLines(info.stack),
-                    elementType: 'PAGE'
+                    elementType: 'page'
                 })
             }
 
