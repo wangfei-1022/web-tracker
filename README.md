@@ -1,10 +1,10 @@
-## web-tracker
+### web-tracker
 
-## 安装
+### 安装
 
 npm install web-tracker --save-dev
 
-## 使用
+### 使用
 
 1. 引入方式
 
@@ -31,7 +31,7 @@ this.$webTracker.send({
 })
 ```
 
-## Log格式说明
+### Log格式说明
 
 | Name        |   Type   | Required  | Description                      |  **Remarks**                                                                      |
 | :----       | :------: | :-------: | :------------------------:       | :----------------:                                                                |
@@ -50,7 +50,7 @@ this.$webTracker.send({
 | fileName    |  string  |    no     | 文件名                            |  当为资源加载错误的时候会有                                       |  
 | ... |  string  |    no     | ... |  任意添加额外需要传递的数据                            |   
 
-## 错误日志类型
+### 错误日志类型
 
 | Code          |   Name     |
 | :----         |  :------:  |
@@ -63,7 +63,7 @@ this.$webTracker.send({
 | LONG_TASK     |  卡顿      |
 | BLANK_SCREEN  |  白屏      |
 
-## Request sample
+### Request sample
 
 ``` javascript
 {
@@ -81,7 +81,7 @@ this.$webTracker.send({
 }
 ```
 
-## License
+### License
 
 [MIT licensed. ](https://opensource.org/licenses/MIT)  
 
