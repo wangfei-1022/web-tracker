@@ -52,16 +52,16 @@ this.$webTracker.send({
 
 ### 错误日志类型
 
-| Code          |   Name     |
-| :----         |  :------:  |
-| PV            |  PV        |
-| PERFORMANCE   |  性能      |
-| JS_ERROR      |  JS错误    |
-| XHR_ERROR     |  接口请求  |
-| CONSOLE_ERROR |  针对vue   |
-| TIME_ON_PAGE  |  在线时长  |
-| LONG_TASK     |  卡顿      |
-| BLANK_SCREEN  |  白屏      |
+| Code          |   Name        |
+| :----         |  :------:     |
+| PV            |  PV           |
+| PERFORMANCE   |  性能         |
+| JS_ERROR      |  JS错误       |
+| XHR_ERROR     |  接口请求错误  |
+| CONSOLE_ERROR |  针对vue      |
+| TIME_ON_PAGE  |  在线时长     |
+| LONG_TASK     |  卡顿         |
+| BLANK_SCREEN  |  白屏         |
 
 ### Request sample
 
