@@ -1,10 +1,10 @@
-# web-tracker
+## web-tracker
 
-# 安装
+## 安装
 
 npm install web-tracker --save-dev
 
-# 使用
+## 使用
 
 1. 引入方式
 
@@ -31,12 +31,12 @@ this.$webTracker.send({
 })
 ```
 
-# Log格式说明
+## Log格式说明
 
 | Name        |   Type   | Required  | Description                      |  **Remarks**                                                                      |
 | :----       | :------: | :-------: | :------------------------:       | :----------------:                                                                |
-| appCode     |  string  |    yes    | 项目代码                          |                                                                                   |
-| version     |  string  |    yes    | 项目版本号                        |                                                                                   |
+| appCode     |  string  |    yes    | 项目代码                          | 会员端：mbp, 运营端：mdp                                                           |
+| version     |  string  |    yes    | 项目版本号                        | 1. 0. 0                                                                          |
 | pageTitle   |  string  |    yes    | 页面标题                          |                                                                                   |
 | pageUrl     |  string  |    yes    | 页面地址                          |                                                                                   |
 | userAgent   |  string  |    yes    | 浏览器版本                        |                                                                                   |
@@ -50,7 +50,7 @@ this.$webTracker.send({
 | fileName    |  string  |    no     | 文件名                            |  当为资源加载错误的时候会有                                       |  
 | ... |  string  |    no     | ... |  任意添加额外需要传递的数据                            |   
 
-# 错误日志类型
+## 错误日志类型
 
 | Code          |   Name     |
 | :----         |  :------:  |
@@ -63,13 +63,25 @@ this.$webTracker.send({
 | LONG_TASK     |  卡顿      |
 | BLANK_SCREEN  |  白屏      |
 
-# 联系方式
+## Request sample
 
-QQ:927230462  
+``` javascript
+{
+    appCode: "mbp",
+    version: "1.0.0",
+    pageTitle: "海通智运-会员平台",
+    pageUrl: "http://localhost:8210/login",
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
+    timestamp: "1625453126009",
+    logType: "business",
+    logCode: "登录",
+    logName: "登录",
+    elementType: "button",
+    ...
+}
+```
 
-微信：wf927230462
-
-# License
+## License
 
 [MIT licensed. ](https://opensource.org/licenses/MIT)  
 
