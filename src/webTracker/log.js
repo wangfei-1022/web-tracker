@@ -26,7 +26,7 @@ class SendLog {
     }
 
     _validate(data) {
-        if (!data.pcode) {
+        if (!data.appCode) {
             clog('请先设置项目代码[appCode]');
             return false
         }
