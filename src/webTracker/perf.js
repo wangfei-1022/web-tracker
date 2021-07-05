@@ -27,7 +27,7 @@ export function injectPerf() {
                     logType: 'monitor',
                     logCode: 'PERFORMANCE_FIRST_INPUT_DELAY',
                     logName: '第一次有效输入',
-                    elementType: 'PAGE',
+                    elementType: 'page',
                     inputDelay: inputDelay ? formatTime(inputDelay) : 0,
                     duration: duration ? formatTime(duration) : 0,
                     startTime: firstInput.startTime,
@@ -57,7 +57,7 @@ export function injectPerf() {
                 logType: 'monitor',
                 logCode: 'PERFORMANCE_TMING',
                 logName: '第一次有效输入',
-                elementType: 'PAGE',
+                elementType: 'page',
                 connectTime: connectEnd - connectStart,//TCP连接耗时
                 ttfbTime: responseStart - requestStart,//ttfb
                 responseTime: responseEnd - responseStart,//Response响应耗时
@@ -76,7 +76,7 @@ export function injectPerf() {
                 logType: 'monitor',
                 logCode: 'PERFORMANCE_PAINT',
                 logName: '第一次绘制',
-                elementType: 'PAGE',
+                elementType: 'page',
                 firstPaint: FP ? formatTime(FP.startTime) : 0,
                 firstContentPaint: FCP ? formatTime(FCP.startTime) : 0,
                 firstMeaningfulPaint: FMP ? formatTime(FMP.startTime) : 0,
