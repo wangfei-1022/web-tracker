@@ -11,7 +11,7 @@ import { merge } from './util/index';
 class WebTracker {
     constructor() {
         this.log = log;
-        this.config = {
+        this.report = {
             PV: false,
             PERFORMANCE: false,  //性能
             JS_ERROR: true,      //JS
@@ -29,6 +29,7 @@ class WebTracker {
     }
 
     init(options) {
+        this.report = merge(this.report, options.report || {});
         this.config = merge(this.config, options);
         this.log.init(this.config);
         this._init();
@@ -43,10 +44,10 @@ class WebTracker {
         injectJsError();
         injectXHR();
         injectConsoleError();
-        this.config && this.config.BLANK_SCREEN && injectBlankScreen();
-        this.config && this.config.LONG_TASK && injectLongTask();
-        this.config && this.config.PERFORMANCE && injectPerf();
-        this.config && this.config.PV && injectPv();
+        this.report && this.report.BLANK_SCREEN && injectBlankScreen();
+        this.report && this.report.LONG_TASK && injectLongTask();
+        this.report && this.report.PERFORMANCE && injectPerf();
+        this.report && this.report.PV && injectPv();
     }
 }
 
