@@ -6,20 +6,20 @@ class SendLog {
     }
 
     init(config) {
-        this.pcode = config.pcode;
+        this.appCode = config.appCode;
         this.host = config.host;
         this.version = config.version;
         this.project = config.host;
         this.logstore = config.host;
-        this.url = `http://${config.project}.${config.host}/logstores/${config.logstore}/track`;
+        this.url = `https://${config.project}.${config.host}/logstores/${config.logstore}/track`;
     }
 
     _getData() {
         return {
-            pcode: this.pcode, //项目代码
+            appCode: this.appCode, //项目代码
             version: this.version,
-            title: document.title,
-            url: location.href,
+            pageTitle: document.title,
+            pageUrl: location.href,
             timestamp: Date.now(),
             userAgent: navigator.userAgent
         };
@@ -27,11 +27,23 @@ class SendLog {
 
     _validate(data) {
         if (!data.pcode) {
-            clog('请先设置项目代码[pcode]');
+            clog('请先设置项目代码[appCode]');
             return false
         }
         if (!data.version) {
             clog('请先设置项目版本号[version]');
+            return false
+        }
+        if (!data.logType) {
+            clog('请先设置项目类型[logType]');
+            return false
+        }
+        if (!data.logCode) {
+            clog('请先设置目标对象代码[logCode]');
+            return false
+        }
+        if (!data.logName) {
+            clog('请先设置目标对象名称[logName]');
             return false
         }
         return true

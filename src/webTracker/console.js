@@ -6,18 +6,21 @@ export function injectConsoleError() {
         return function (info) {
             if (typeof info === 'string') {
                 log.send({
-                    kind: 'STABILITY',
+                    logType: 'monitor',
                     type: 'ERROR',
-                    errorType: 'CONSOLE_ERROR',
-                    message: info
+                    logCode: 'CONSOLE_ERROR',
+                    logName: '控制台错误',
+                    message: info,
+                    elementType: 'PAGE'
                 })
             } else if (typeof info === 'object') {
                 log.send({
-                    kind: 'STABILITY',
-                    type: 'ERROR',
-                    errorType: 'CONSOLE_ERROR',
+                    logType: 'monitor',
+                    logCode: 'CONSOLE_ERROR',
+                    logName: '控制台错误',
                     message: info.message,
-                    stack: getStackLines(info.stack)
+                    stack: getStackLines(info.stack),
+                    elementType: 'PAGE'
                 })
             }
 

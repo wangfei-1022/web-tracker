@@ -25,7 +25,7 @@ class WebTracker {
 
     install(Vue, options){
         this.init(options)
-        Vue.prototype.webTracker = this
+        Vue.prototype.$webTracker = this
     }
 
     init(options) {

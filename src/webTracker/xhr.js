@@ -25,8 +25,10 @@ export function injectXHR() {
                 }
                 let statusText = this.statusText;
                 log.send({
-                    kind: 'STABILITY',
-                    type: 'XHR_ERROR',
+                    logType: 'monitor',
+                    logCode: 'XHR_ERROR',
+                    logName: '接口错误',
+                    elementType: 'PAGE',
                     eventType: type,//LOAD ERROR ABORT
                     pathname: this.logData.url, 
                     status: status + "-" + statusText,

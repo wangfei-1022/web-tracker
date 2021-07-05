@@ -6,23 +6,23 @@ export function injectJsError() {
         let lastEvent = getLastEvent();
         if (event.target && (event.target.src || event.target.href)) {
             log.send({
-                kind: 'STABILITY',
-                type: 'ERROR',
-                errorType: 'RESOURCE_ERROR',
+                logType: 'monitor',
+                logCode: 'RESOURCE_ERROR',
+                logName: '资源加载错误',
                 filename: event.target.src || event.target.href,
                 tagName: event.target.tagName,
-                selector: getSelector(event.path || event.target),
+                elementType: getSelector(event.path || event.target),
             })
         } else {
             log.send({
-                kind: 'STABILITY',
-                type: 'ERROR',
-                errorType: 'JS_ERROR',
+                logType: 'monitor',
+                logCode: 'JS_ERROR',
+                logName: 'JS错误',
                 message: event.message,
                 filename: event.filename,
                 position: (event.lineNo || 0) + ":" + (event.columnNo || 0),
                 stack: getLines(event.error.stack),
-                selector: lastEvent ? getSelector(lastEvent.path || lastEvent.target) : ''
+                elementType: lastEvent ? getSelector(lastEvent.path || lastEvent.target) : ''
             })
         }
     }, true);// true代表在捕获阶段调用,false代表在冒泡阶段捕获,使用true或false都可以
@@ -53,14 +53,14 @@ export function injectJsError() {
             }
         }
         log.send({
-            kind: 'STABILITY',
-            type: 'ERROR',
-            errorType: 'PROMISE_ERROR',
+            logType: 'monitor',
+            logCode: 'PROMISE_ERROR',
+            logName: 'Promise错误',
+            elementType: lastEvent ? getSelector(lastEvent.path || lastEvent.target) : '',
             message: message,
             filename: file,
             position: line + ':' + column,
             stack,
-            selector: lastEvent ? getSelector(lastEvent.path || lastEvent.target) : ''
         })
     }, true);// true代表在捕获阶段调用,false代表在冒泡阶段捕获,使用true或false都可以
 }
