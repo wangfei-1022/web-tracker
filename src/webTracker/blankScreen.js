@@ -24,7 +24,6 @@ export function injectBlankScreen() {
     }
     onload(function () {
         let xElements, yElements;
-        debugger
         for (let i = 1; i <= 9; i++) {
             xElements = document.elementsFromPoint(window.innerWidth * i / 10, window.innerHeight / 2)
             yElements = document.elementsFromPoint(window.innerWidth / 2, window.innerHeight * i / 10)

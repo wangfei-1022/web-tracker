@@ -1,5 +1,5 @@
 import log from './log';
-import { getLastEvent, getSelector, formatTime } from '../util/index';
+import { getSelector, getLines, getLastEvent } from '../util/selector';
 
 export function injectJsError() {
     window.addEventListener('error', function (event) {
@@ -65,9 +65,3 @@ export function injectJsError() {
     }, true);// true代表在捕获阶段调用,false代表在冒泡阶段捕获,使用true或false都可以
 }
 
-function getLines(stack) {
-    if (!stack) {
-        return '';
-    }
-    return stack.split('\n').slice(1).map(item => item.replace(/^\s+at\s+/g, '')).join('^');
-}

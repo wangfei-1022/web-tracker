@@ -1,11 +1,10 @@
 import log from './log';
-import { formatTime, getLastEvent, getSelector } from '../util/index';
+import { formatTime } from '../util/index';
 
 export function injectLongTask() {
     new PerformanceObserver((list) => {
         list.getEntries().forEach(entry => {
             if (entry.duration > 100) {
-                let lastEvent = getLastEvent();
                 requestIdleCallback(() => {
                     log.send({
                         logType: 'monitor',
@@ -14,7 +13,6 @@ export function injectLongTask() {
                         eventType: lastEvent.type,
                         startTime: formatTime(entry.startTime),// 开始时间
                         duration: formatTime(entry.duration),// 持续时间
-                        elementType: lastEvent ? getSelector(lastEvent.path || lastEvent.target) : ''
                     });
                 });
             }

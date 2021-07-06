@@ -1,5 +1,4 @@
 import log from './log';
-import { getStackLines } from '../util/index';
 
 export function injectConsoleError() {
     console.error = function (origin) {
@@ -19,7 +18,7 @@ export function injectConsoleError() {
                     logCode: 'CONSOLE_ERROR',
                     logName: '控制台错误',
                     message: info.message,
-                    stack: getStackLines(info.stack),
+                    stack: info.stack,
                     elementType: 'page'
                 })
             }

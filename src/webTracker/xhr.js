@@ -3,10 +3,10 @@ export function injectXHR() {
     let XMLHttpRequest = window.XMLHttpRequest;
 
     let oldOpen = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function (method, url, async, username, password) {
+    XMLHttpRequest.prototype.open = function (method, url, async, user, password) {
         if (!url.match(/logstores/) && !url.match(/sockjs/)) {
             this.logData = {
-                method, url, async, username, password
+                method, url, async, user, password
             }
         }
         return oldOpen.apply(this, arguments);
