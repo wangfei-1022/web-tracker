@@ -20,8 +20,8 @@ export function injectJsError() {
                 logName: 'JS错误',
                 message: event.message,
                 filename: event.filename,
-                position: (event.lineNo || 0) + ":" + (event.columnNo || 0),
-                stack: getLines(event.error.stack),
+                position: (event.lineno || 0) + ":" + (event.colno || 0),
+                stack: event.error.stack,
                 elementType: lastEvent ? getSelector(lastEvent.path || lastEvent.target) : ''
             })
         }
@@ -49,7 +49,7 @@ export function injectJsError() {
                     line = matchResult[2];
                     column = matchResult[3];
                 }
-                stack = getLines(reason.stack);
+                stack = reason.stack;
             }
         }
         log.send({
