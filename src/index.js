@@ -28,8 +28,10 @@ class WebTracker {
     }
 
     init(options) {
+        options = options || {}
         this.report = merge(this.report, options.report || {});
-        this.config = merge(this.config, options);
+        options.report = this.report
+        this.config = options;
         log.init(this.config);
         this._init();
     }
