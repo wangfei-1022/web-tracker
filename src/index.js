@@ -10,7 +10,6 @@ import { merge } from './util/index';
 
 class WebTracker {
     constructor() {
-        this.log = log;
         this.report = {
             PV: false,
             PERFORMANCE: false,  //性能
@@ -23,7 +22,7 @@ class WebTracker {
         };
     }
 
-    install(Vue, options){
+    install(Vue, options) {
         this.init(options)
         Vue.prototype.$webTracker = this
     }
@@ -31,12 +30,26 @@ class WebTracker {
     init(options) {
         this.report = merge(this.report, options.report || {});
         this.config = merge(this.config, options);
-        this.log.init(this.config);
+        log.init(this.config);
         this._init();
     }
 
-    send(data){
-        this.log.send(data);
+    send(data) {
+        var method = data.method
+        delete data.method
+        switch (method) {
+            case 'POST':
+                log.sendPost(data);
+                break;
+            case 'GET':
+                log.sendGet(data);
+                break;
+            case 'IMG':
+                log.sendImg(data);
+                break;
+            default:
+                log.sendPost(data);
+        }
     }
 
     _init() {

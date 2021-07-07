@@ -2,7 +2,7 @@
 
 ### 安装
 
-npm install web-tracker --save-dev
+npm install web-tracker --save
 
 ### 使用
 
@@ -52,16 +52,16 @@ this.$webTracker.send({
 
 ### 错误日志类型
 
-| Code          |   Name        |
-| :----         |  :------:     |
-| PV            |  PV           |
-| PERFORMANCE   |  性能         |
-| JS_ERROR      |  JS错误       |
-| XHR_ERROR     |  接口请求错误  |
-| CONSOLE_ERROR |  针对vue      |
-| TIME_ON_PAGE  |  在线时长     |
-| LONG_TASK     |  卡顿         |
-| BLANK_SCREEN  |  白屏         |
+| Code          |  默认是否启用 |  Name        |
+| :------------ | :----------- | :----------: |
+| JS_ERROR      |     yes      | JS错误       |
+| XHR_ERROR     |     yes      | 接口请求错误  |
+| CONSOLE_ERROR |     yes      | 针对vue      |
+| TIME_ON_PAGE  |     no       | 在线时长     |
+| LONG_TASK     |     no       | 卡顿         |
+| BLANK_SCREEN  |     no       | 白屏         |
+| PV            |     no       | PV           |
+| PERFORMANCE   |     no       | 性能         |
 
 ### Request sample
 

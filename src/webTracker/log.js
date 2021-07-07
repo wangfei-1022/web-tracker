@@ -15,7 +15,7 @@ class SendLog {
     }
 
     _getData() {
-        return {
+        let extraData = {
             appCode: this.appCode, //项目代码
             version: this.version,
             pageTitle: document.title,
@@ -23,6 +23,13 @@ class SendLog {
             timestamp: Date.now(),
             userAgent: navigator.userAgent
         };
+        let logs = { ...extraData, ...data };
+        for (let key in logs) {
+            if (typeof logs[key] === 'number') {
+                logs[key] = "" + logs[key];
+            }
+        }
+        return logs
     }
 
     _validate(data) {
@@ -49,20 +56,12 @@ class SendLog {
         return true
     }
 
-    send(data = {}, callback) {
-        let extraData = this._getData();
-        let logs = { ...extraData, ...data };
-        for (let key in logs) {
-            if (typeof logs[key] === 'number') {
-                logs[key] = "" + logs[key];
-            }
-        }
-
+    sendPost(data = {}, callback) {
+        let logs = this._getData(data);
         //校验发送的格式是否合格
         if (!this._validate(logs)) {
             return
         }
-
         let body = JSON.stringify({
             __logs__: [logs]
         });
@@ -81,6 +80,43 @@ class SendLog {
         this.xhr.send(body);
     }
 
+    sendGet(data = {}, callback) {
+        let logs = this._getData(data);
+        //校验发送的格式是否合格
+        if (!this._validate(logs)) {
+            return
+        }
+        let str = ''
+        Object.keys(logs).forEach(function (key) {
+            str += '&' + key + '=' + logs[key]
+        })
+        let url = `http://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
+
+        this.xhr.open("GET", url, true);
+        this.xhr.onload = function () {
+            if ((this.status >= 200 && this.status <= 300) || this.status == 304) {
+                callback && callback();
+            }
+        }
+        this.xhr.onerror = function (error) {
+            console.log('error', error);
+        }
+        this.xhr.send();
+    }
+
+    sendImg(data = {}, callback) {
+        let logs = this._getData(data);
+        //校验发送的格式是否合格
+        if (!this._validate(logs)) {
+            return
+        }
+        var str = ''
+        Object.keys(logs).forEach(function (key) {
+            str += '&' + key + '=' + logs[key]
+        })
+        var img = document.createElement('img');
+        img.src = `http://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
+    }
 
 }
 
