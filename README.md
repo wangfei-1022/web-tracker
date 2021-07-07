@@ -53,7 +53,7 @@ this.$webTracker.send({
 ### 错误日志类型
 
 | Code          |  默认是否启用 |  Name        |
-| :------------ | :----------- | :----------: |
+| :------------ | :----------: | :----------: |
 | JS_ERROR      |     yes      | JS错误       |
 | XHR_ERROR     |     yes      | 接口请求错误  |
 | CONSOLE_ERROR |     yes      | 针对vue      |
