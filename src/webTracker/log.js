@@ -14,7 +14,7 @@ class SendLog {
         this.url = `https://${config.project}.${config.host}/logstores/${config.logstore}/track`;
     }
 
-    _getData() {
+    _getData(data = {}) {
         let extraData = {
             appCode: this.appCode, //项目代码
             version: this.version,
@@ -54,6 +54,10 @@ class SendLog {
             return false
         }
         return true
+    }
+
+    send(data = {}, callback) {
+        this.sendPost(data, callback)
     }
 
     sendPost(data = {}, callback) {

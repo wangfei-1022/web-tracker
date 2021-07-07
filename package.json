@@ -1,6 +1,6 @@
 {
   "name": "web-tracker",
-  "version": "1.0.19",
+  "version": "1.0.22",
   "description": "web tracker",
   "main": "./src/index.js",
   "scripts": {
