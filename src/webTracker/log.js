@@ -94,7 +94,7 @@ class SendLog {
         Object.keys(logs).forEach(function (key) {
             str += '&' + key + '=' + logs[key]
         })
-        let url = `http://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
+        let url = `https://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
 
         this.xhr.open("GET", url, true);
         this.xhr.onload = function () {
@@ -119,7 +119,8 @@ class SendLog {
             str += '&' + key + '=' + logs[key]
         })
         var img = document.createElement('img');
-        img.src = `http://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
+        img.setAttribute('class', 'img-responsive')
+        img.src = `https://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
     }
 
 }
