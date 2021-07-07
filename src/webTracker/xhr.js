@@ -3,10 +3,10 @@ export function injectXHR() {
     let XMLHttpRequest = window.XMLHttpRequest;
 
     let oldOpen = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function (method, url, async, username, password) {
+    XMLHttpRequest.prototype.open = function (method, url, async, user, password) {
         if (!url.match(/logstores/) && !url.match(/sockjs/)) {
             this.logData = {
-                method, url, async, username, password
+                method, url, async, user, password
             }
         }
         return oldOpen.apply(this, arguments);
@@ -25,8 +25,10 @@ export function injectXHR() {
                 }
                 let statusText = this.statusText;
                 log.send({
-                    kind: 'STABILITY',
-                    type: 'XHR_ERROR',
+                    logType: 'monitor',
+                    logCode: 'XHR_ERROR',
+                    logName: '接口错误',
+                    elementType: 'page',
                     eventType: type,//LOAD ERROR ABORT
                     pathname: this.logData.url, 
                     status: status + "-" + statusText,

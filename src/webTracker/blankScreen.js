@@ -24,7 +24,6 @@ export function injectBlankScreen() {
     }
     onload(function () {
         let xElements, yElements;
-        debugger
         for (let i = 1; i <= 9; i++) {
             xElements = document.elementsFromPoint(window.innerWidth * i / 10, window.innerHeight / 2)
             yElements = document.elementsFromPoint(window.innerWidth / 2, window.innerHeight * i / 10)
@@ -34,12 +33,13 @@ export function injectBlankScreen() {
         if (emptyPoints >= 0) {
             let centerElements = document.elementsFromPoint(window.innerWidth / 2, window.innerHeight / 2)
             log.send({
-                kind: 'STABILITY',
-                type: 'BLANK_SCREEN',
+                logType: 'monitor',
+                logCode: 'BLANK_SCREEN',
+                logName: '白屏',
                 emptyPoints: "" + emptyPoints,
                 screen: window.screen.width + "x" + window.screen.height,
                 viewPoint: window.innerWidth + 'x' + window.innerHeight,
-                selector: getSelector(centerElements[0]),
+                elementType: getSelector(centerElements[0]),
             })
         }
     });

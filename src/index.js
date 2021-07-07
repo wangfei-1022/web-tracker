@@ -7,12 +7,11 @@ import { injectPerf } from './webTracker/perf';
 import { injectLongTask } from '../src/webTracker/longTask';
 import { injectPv } from '../src/webTracker/pv';
 import log from '../src/webTracker/log';
-import { merge } from './util/index'
+import { merge } from './util/index';
 
 class WebTracker {
     constructor() {
-        this.log = log;
-        this.config = {
+        this.report = {
             PV: false,
             PERFORMANCE: false,  //性能
             JS_ERROR: true,      //JS
@@ -23,20 +22,46 @@ class WebTracker {
             BLANK_SCREEN: false //白屏
         };
     }
-    init(config) {
-        this.config = merge(this.config, config);
-        this.log.init(this.config);
+
+    install(Vue, options) {
+        this.init(options)
+        Vue.prototype.$webTracker = this
+    }
+
+    init(options) {
+        this.report = merge(this.report, options.report || {});
+        this.config = merge(this.config, options);
+        log.init(this.config);
         this._init();
     }
+
+    send(data) {
+        var method = data.method
+        delete data.method
+        switch (method) {
+            case 'POST':
+                log.sendPost(data);
+                break;
+            case 'GET':
+                log.sendGet(data);
+                break;
+            case 'IMG':
+                log.sendImg(data);
+                break;
+            default:
+                log.sendPost(data);
+        }
+    }
+
     _init() {
         //默认监听js错误、资源请求错误、接口请求错误
         injectJsError();
         injectXHR();
         injectConsoleError();
-        this.config && this.config.BLANK_SCREEN && injectBlankScreen();
-        this.config && this.config.LONG_TASK && injectLongTask();
-        this.config && this.config.PERFORMANCE && injectPerf();
-        this.config && this.config.PV && injectPv();
+        this.report && this.report.BLANK_SCREEN && injectBlankScreen();
+        this.report && this.report.LONG_TASK && injectLongTask();
+        this.report && this.report.PERFORMANCE && injectPerf();
+        this.report && this.report.PV && injectPv();
     }
 }
 

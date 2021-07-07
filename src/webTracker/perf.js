@@ -1,5 +1,5 @@
 import log from './log';
-import { onload, formatTime, getLastEvent, getSelector } from '../util/index';
+import { onload, formatTime } from '../util/index';
 
 export function injectPerf() {
     let FMP, LCP;
@@ -17,19 +17,21 @@ export function injectPerf() {
     }).observe({ entryTypes: ['largest-contentful-paint'] });
 
     new PerformanceObserver(function (entryList, observer) {
-        let lastEvent = getLastEvent();
+
         const firstInput = entryList.getEntries()[0];
         if (firstInput) {
             let inputDelay = firstInput.processingStart - firstInput.startTime;//处理延迟
             let duration = firstInput.duration;//处理耗时
             if (firstInput > 0 || duration > 0) {
+                //第一输入延迟（FID）测量用户首次与您的站点交互时的时间 //计算出的延迟时间
                 log.send({
-                    kind: 'PERFORMANCE',
-                    type: 'FIRST_INPUT_DELAY',
+                    logType: 'monitor',
+                    logCode: 'PERFORMANCE_FIRST_INPUT_DELAY',
+                    logName: '第一输入延迟',
+                    elementType: 'page',
                     inputDelay: inputDelay ? formatTime(inputDelay) : 0,
                     duration: duration ? formatTime(duration) : 0,
-                    startTime: firstInput.startTime,
-                    selector: lastEvent ? getSelector(lastEvent.path || lastEvent.target) : ''
+                    startTime: firstInput.startTime
                 });
             }
         }
@@ -52,8 +54,10 @@ export function injectPerf() {
                 domContentLoadedEventEnd,
                 loadEventStart } = performance.timing;
             log.send({
-                kind: 'PERFORMANCE',
-                type: 'TMING',
+                logType: 'monitor',
+                logCode: 'PERFORMANCE_TMING',
+                logName: '性能计时',
+                elementType: 'page',
                 connectTime: connectEnd - connectStart,//TCP连接耗时
                 ttfbTime: responseStart - requestStart,//ttfb
                 responseTime: responseEnd - responseStart,//Response响应耗时
@@ -64,13 +68,12 @@ export function injectPerf() {
             });
             const FP = performance.getEntriesByName('first-paint')[0];
             const FCP = performance.getEntriesByName('first-contentful-paint')[0];
-            console.log('FP', FP);
-            console.log('FCP', FCP);
-            console.log('FMP', FMP);
-            console.log('LCP', LCP);
+
             log.send({
-                kind: 'PERFORMANCE',
-                type: 'PAINT',
+                logType: 'monitor',
+                logCode: 'PERFORMANCE_PAINT',
+                logName: '首次绘制',
+                elementType: 'page',
                 firstPaint: FP ? formatTime(FP.startTime) : 0,
                 firstContentPaint: FCP ? formatTime(FCP.startTime) : 0,
                 firstMeaningfulPaint: FMP ? formatTime(FMP.startTime) : 0,

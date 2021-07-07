@@ -1,10 +1,9 @@
 
-export const LOG_TYPE_ERROR = 'error' // 错误日志
-export const LOG_TYPE_PRODUCT = 'product' // 产品指标
-export const LOG_TYPE_INFO = 'info' // 尚未使用
-export const LOG_TYPE_PERFORMANCE = 'perf' // 性能指标
+export const LOG_TYPE_ERROR = 'error' 
+export const LOG_TYPE_PRODUCT = 'product' 
+export const LOG_TYPE_INFO = 'info' 
+export const LOG_TYPE_PERFORMANCE = 'perf'
 
-// 定义JS_TRACKER错误类型码
 export const JS_TRACKER_ERROR_CONSTANT_MAP = {
   1: 'ERROR_RUNTIME',
   2: 'ERROR_SCRIPT',

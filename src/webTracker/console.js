@@ -3,20 +3,23 @@ import log from './log';
 export function injectConsoleError() {
     console.error = function (origin) {
         return function (info) {
-            if(typeof info === 'string'){
-                Log.send({
-                    kind: 'STABILITY',
+            if (typeof info === 'string') {
+                log.send({
+                    logType: 'monitor',
                     type: 'ERROR',
-                    errorType: 'CONSOLE_ERROR',
-                    message: info
+                    logCode: 'CONSOLE_ERROR',
+                    logName: '控制台错误',
+                    message: info,
+                    elementType: 'page'
                 })
-            }else if(typeof info === 'object'){
-                Log.send({
-                    kind: 'STABILITY',
-                    type: 'ERROR',
-                    errorType: 'CONSOLE_ERROR',
+            } else if (typeof info === 'object') {
+                log.send({
+                    logType: 'monitor',
+                    logCode: 'CONSOLE_ERROR',
+                    logName: '控制台错误',
                     message: info.message,
-                    stack: info.stack
+                    stack: info.stack,
+                    elementType: 'page'
                 })
             }
             origin.call(console, info);
