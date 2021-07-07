@@ -51,6 +51,7 @@ class WebTracker {
                 break;
             default:
                 log.sendPost(data);
+                break;
         }
     }
 
