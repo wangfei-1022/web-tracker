@@ -1,5 +1,5 @@
 import log from './log';
-import { getSelector, getLines, getLastEvent } from '../util/selector';
+import { getSelector, getLastEvent } from '../util/selector';
 
 export function injectJsError() {
     window.addEventListener('error', function (event) {
