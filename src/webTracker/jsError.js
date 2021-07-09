@@ -21,7 +21,7 @@ export function injectJsError() {
                 message: event.message,
                 filename: event.filename,
                 position: (event.lineno || 0) + ":" + (event.colno || 0),
-                stack: event.error.stack,
+                stack: event.error && event.error.stack,
                 elementType: lastEvent ? getSelector(lastEvent.path || lastEvent.target) : ''
             })
         }

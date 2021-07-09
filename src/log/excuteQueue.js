@@ -6,19 +6,30 @@ class ExcuteQueue {
         this.list = [];
     }
 
-    add(data) {
-        this.list.push(data)
+    add(data, callback) {
+        this.list.push({
+            data,
+            callback
+        })
         if (this.state !== 'RUNING') {
-            this.next()
             this.state = 'RUNING';
+            this.next();
         }
     }
 
+    run(){
+        this.state = 'RUNING';
+        this.next();
+    }
+
     next() {
-        var data = this.list.shift()
-        if (data) {
-            log.send(data, () => {
-                this.state = 'NULL'; 
+        var item = this.list.shift();
+        if (item && item.data) {
+            log.send(item.data, () => {
+                this.state = 'NULL';
+                if(item.callback && typeof item.callback == 'function'){
+                    item.callback();
+                }
             })
         }
     }
