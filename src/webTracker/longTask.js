@@ -1,4 +1,4 @@
-import log from './log';
+import excuteQueue from '../log/excuteQueue';
 import { formatTime } from '../util/index';
 
 export function injectLongTask() {
@@ -6,7 +6,7 @@ export function injectLongTask() {
         list.getEntries().forEach(entry => {
             if (entry.duration > 100) {
                 requestIdleCallback(() => {
-                    log.send({
+                    excuteQueue.add({
                         logType: 'monitor',
                         logCode: 'LONG_TASK',
                         logName: '卡顿',

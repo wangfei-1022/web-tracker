@@ -1,11 +1,11 @@
-import log from './log';
+import excuteQueue from '../log/excuteQueue';
 import { getSelector, getLastEvent } from '../util/selector';
 
 export function injectJsError() {
     window.addEventListener('error', function (event) {
         let lastEvent = getLastEvent();
         if (event.target && (event.target.src || event.target.href)) {
-            log.send({
+            excuteQueue.add({
                 logType: 'monitor',
                 logCode: 'RESOURCE_ERROR',
                 logName: '资源加载错误',
@@ -14,7 +14,7 @@ export function injectJsError() {
                 elementType: getSelector(event.path || event.target),
             })
         } else {
-            log.send({
+            excuteQueue.add({
                 logType: 'monitor',
                 logCode: 'JS_ERROR',
                 logName: 'JS错误',
@@ -52,7 +52,7 @@ export function injectJsError() {
                 stack = reason.stack;
             }
         }
-        log.send({
+        excuteQueue.add({
             logType: 'monitor',
             logCode: 'PROMISE_ERROR',
             logName: 'Promise错误',

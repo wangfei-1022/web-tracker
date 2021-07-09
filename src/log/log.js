@@ -1,5 +1,5 @@
 import { clog } from '../util/index'
-
+import excuteQueue from './excuteQueue'
 class SendLog {
     constructor() {
         this.xhr = new XMLHttpRequest();
@@ -57,7 +57,22 @@ class SendLog {
     }
 
     send(data = {}, callback) {
-        this.sendPost(data, callback)
+        var method = data.method
+        delete data.method
+        switch (method) {
+            case 'POST':
+                this.sendPost(data, callback);
+                break;
+            case 'GET':
+                this.sendGet(data, callback);
+                break;
+            case 'IMG':
+                this.sendImg(data, callback);
+                break;
+            default:
+                this.sendPost(data, callback);
+                break;
+        }
     }
 
     sendPost(data = {}, callback) {
@@ -75,10 +90,13 @@ class SendLog {
         this.xhr.setRequestHeader('x-log-bodyrawsize', body.length);
         this.xhr.onload = function () {
             if ((this.status >= 200 && this.status <= 300) || this.status == 304) {
+                excuteQueue.next();
                 callback && callback();
             }
         }
         this.xhr.onerror = function (error) {
+            excuteQueue.next();
+            callback && callback();
             console.log('error', error);
         }
         this.xhr.send(body);
@@ -99,10 +117,14 @@ class SendLog {
         this.xhr.open("GET", url, true);
         this.xhr.onload = function () {
             if ((this.status >= 200 && this.status <= 300) || this.status == 304) {
+                excuteQueue.next();
                 callback && callback();
             }
         }
         this.xhr.onerror = function (error) {
+            //当一个结束之后 进行下一个
+            excuteQueue.next();
+            callback && callback();
             console.log('error', error);
         }
         this.xhr.send();

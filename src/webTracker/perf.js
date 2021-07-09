@@ -1,4 +1,4 @@
-import log from './log';
+import excuteQueue from '../log/excuteQueue';
 import { onload, formatTime } from '../util/index';
 
 export function injectPerf() {
@@ -24,7 +24,7 @@ export function injectPerf() {
             let duration = firstInput.duration;//处理耗时
             if (firstInput > 0 || duration > 0) {
                 //第一输入延迟（FID）测量用户首次与您的站点交互时的时间 //计算出的延迟时间
-                log.send({
+                excuteQueue.add({
                     logType: 'monitor',
                     logCode: 'PERFORMANCE_FIRST_INPUT_DELAY',
                     logName: '第一输入延迟',
@@ -69,7 +69,7 @@ export function injectPerf() {
             const FP = performance.getEntriesByName('first-paint')[0];
             const FCP = performance.getEntriesByName('first-contentful-paint')[0];
 
-            log.send({
+            excuteQueue.add({
                 logType: 'monitor',
                 logCode: 'PERFORMANCE_PAINT',
                 logName: '首次绘制',
