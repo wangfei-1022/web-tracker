@@ -81,6 +81,10 @@ this.$webTracker.send({
 }
 ```
 
+### Changelog
+
+Detailed changes for each release are documented in the [release notes](https://github.com/927230462/web-tracker/releases). 
+
 ### License
 
 [MIT licensed. ](https://opensource.org/licenses/MIT)  
