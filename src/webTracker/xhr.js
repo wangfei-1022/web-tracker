@@ -1,4 +1,4 @@
-import log from './log';
+import excuteQueue from '../log/excuteQueue';
 export function injectXHR() {
     let XMLHttpRequest = window.XMLHttpRequest;
 
@@ -24,7 +24,7 @@ export function injectXHR() {
                     return
                 }
                 let statusText = this.statusText;
-                log.send({
+                excuteQueue.add({
                     logType: 'monitor',
                     logCode: 'XHR_ERROR',
                     logName: '接口错误',

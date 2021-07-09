@@ -1,10 +1,10 @@
-import log from './log';
+import excuteQueue from '../log/excuteQueue';
 
 export function injectConsoleError() {
     console.error = function (origin) {
         return function (info) {
             if (typeof info === 'string') {
-                log.send({
+                excuteQueue.add({
                     logType: 'monitor',
                     type: 'ERROR',
                     logCode: 'CONSOLE_ERROR',
@@ -13,7 +13,7 @@ export function injectConsoleError() {
                     elementType: 'page'
                 })
             } else if (typeof info === 'object') {
-                log.send({
+                excuteQueue.add({
                     logType: 'monitor',
                     logCode: 'CONSOLE_ERROR',
                     logName: '控制台错误',

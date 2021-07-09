@@ -1,11 +1,11 @@
-import log from './log';
-import { getSelector, getLines, getLastEvent } from '../util/selector';
+import excuteQueue from '../log/excuteQueue';
+import { getSelector, getLastEvent } from '../util/selector';
 
 export function injectJsError() {
     window.addEventListener('error', function (event) {
         let lastEvent = getLastEvent();
         if (event.target && (event.target.src || event.target.href)) {
-            log.send({
+            excuteQueue.add({
                 logType: 'monitor',
                 logCode: 'RESOURCE_ERROR',
                 logName: '资源加载错误',
@@ -14,14 +14,14 @@ export function injectJsError() {
                 elementType: getSelector(event.path || event.target),
             })
         } else {
-            log.send({
+            excuteQueue.add({
                 logType: 'monitor',
                 logCode: 'JS_ERROR',
                 logName: 'JS错误',
                 message: event.message,
                 filename: event.filename,
-                position: (event.lineNo || 0) + ":" + (event.columnNo || 0),
-                stack: getLines(event.error.stack),
+                position: (event.lineno || 0) + ":" + (event.colno || 0),
+                stack: event.error && event.error.stack,
                 elementType: lastEvent ? getSelector(lastEvent.path || lastEvent.target) : ''
             })
         }
@@ -49,10 +49,10 @@ export function injectJsError() {
                     line = matchResult[2];
                     column = matchResult[3];
                 }
-                stack = getLines(reason.stack);
+                stack = reason.stack;
             }
         }
-        log.send({
+        excuteQueue.add({
             logType: 'monitor',
             logCode: 'PROMISE_ERROR',
             logName: 'Promise错误',

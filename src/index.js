@@ -6,7 +6,8 @@ import { injectBlankScreen } from '../src/webTracker/blankScreen';
 import { injectPerf } from './webTracker/perf';
 import { injectLongTask } from '../src/webTracker/longTask';
 import { injectPv } from '../src/webTracker/pv';
-import log from '../src/webTracker/log';
+import log from '../src/log/log';
+import excuteQueue from '../src/log/excuteQueue'
 import { merge } from './util/index';
 
 class WebTracker {
@@ -29,28 +30,17 @@ class WebTracker {
     }
 
     init(options) {
+        options = options || {}
         this.report = merge(this.report, options.report || {});
-        this.config = merge(this.config, options);
+        options.report = this.report
+        this.config = options;
         log.init(this.config);
         this._init();
     }
 
-    send(data) {
-        var method = data.method
-        delete data.method
-        switch (method) {
-            case 'POST':
-                log.sendPost(data);
-                break;
-            case 'GET':
-                log.sendGet(data);
-                break;
-            case 'IMG':
-                log.sendImg(data);
-                break;
-            default:
-                log.sendPost(data);
-        }
+    send(data, callback) {
+        //发送数据时先加入执行队列
+        excuteQueue.add(data, callback) 
     }
 
     _init() {

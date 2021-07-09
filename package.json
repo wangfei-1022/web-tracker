@@ -1,6 +1,6 @@
 {
   "name": "web-tracker",
-  "version": "1.0.19",
+  "version": "1.0.25",
   "description": "web tracker",
   "main": "./src/index.js",
   "scripts": {
@@ -28,8 +28,5 @@
     "babel-preset-env": "^1.7.0",
     "rollup": "^2.52.3",
     "rollup-plugin-uglify": "^6.0.4"
-  },
-  "dependencies": {
-    "user-agent": "^1.0.4"
   }
 }

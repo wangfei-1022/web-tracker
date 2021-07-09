@@ -1,4 +1,5 @@
 import { clog } from '../util/index'
+import excuteQueue from './excuteQueue'
 
 class SendLog {
     constructor() {
@@ -14,7 +15,7 @@ class SendLog {
         this.url = `https://${config.project}.${config.host}/logstores/${config.logstore}/track`;
     }
 
-    _getData() {
+    _getData(data = {}) {
         let extraData = {
             appCode: this.appCode, //项目代码
             version: this.version,
@@ -56,6 +57,23 @@ class SendLog {
         return true
     }
 
+    send(data = {}, callback) {
+        var method = data.method
+        delete data.method
+        switch (method) {
+            case 'GET':
+                this.sendGet(data, callback);
+                break;
+            case 'IMG':
+                this.sendImg(data, callback);
+                break;
+            case 'POST':
+            default:
+                this.sendPost(data, callback);
+                break;
+        }
+    }
+
     sendPost(data = {}, callback) {
         let logs = this._getData(data);
         //校验发送的格式是否合格
@@ -71,10 +89,13 @@ class SendLog {
         this.xhr.setRequestHeader('x-log-bodyrawsize', body.length);
         this.xhr.onload = function () {
             if ((this.status >= 200 && this.status <= 300) || this.status == 304) {
+                excuteQueue.run();
                 callback && callback();
             }
         }
         this.xhr.onerror = function (error) {
+            excuteQueue.run();
+            callback && callback();
             console.log('error', error);
         }
         this.xhr.send(body);
@@ -90,15 +111,19 @@ class SendLog {
         Object.keys(logs).forEach(function (key) {
             str += '&' + key + '=' + logs[key]
         })
-        let url = `http://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
+        let url = `https://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
 
         this.xhr.open("GET", url, true);
         this.xhr.onload = function () {
             if ((this.status >= 200 && this.status <= 300) || this.status == 304) {
+                excuteQueue.run();
                 callback && callback();
             }
         }
         this.xhr.onerror = function (error) {
+            //当一个结束之后 进行下一个
+            excuteQueue.run();
+            callback && callback();
             console.log('error', error);
         }
         this.xhr.send();
@@ -115,7 +140,8 @@ class SendLog {
             str += '&' + key + '=' + logs[key]
         })
         var img = document.createElement('img');
-        img.src = `http://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
+        img.setAttribute('class', 'img-responsive')
+        img.src = `https://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
     }
 
 }
