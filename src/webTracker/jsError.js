@@ -4,15 +4,19 @@ import { getSelector, getLastEvent } from '../util/selector';
 export function injectJsError() {
     window.addEventListener('error', function (event) {
         let lastEvent = getLastEvent();
-        if (event.target && (event.target.src || event.target.href)) {
-            excuteQueue.add({
-                logType: 'monitor',
-                logCode: 'RESOURCE_ERROR',
-                logName: '资源加载错误',
-                filename: event.target.src || event.target.href,
-                tagName: event.target.tagName,
-                elementType: getSelector(event.path || event.target),
-            })
+        let resourceUrl = event.target.src || event.target.href
+        if (event.target && resourceUrl) {
+            //如果等于当前路径 则说明src 或者 href 为空
+            if (resourceUrl !== window.location.href) {
+                excuteQueue.add({
+                    logType: 'monitor',
+                    logCode: 'RESOURCE_ERROR',
+                    logName: '资源加载错误',
+                    filename: event.target.src || event.target.href,
+                    tagName: event.target.tagName,
+                    elementType: getSelector(event.path || event.target),
+                })
+            }
         } else {
             excuteQueue.add({
                 logType: 'monitor',
