@@ -26,9 +26,16 @@ class SendLog {
         };
         let logs = { ...extraData, ...data };
         for (let key in logs) {
-            if (typeof logs[key] === 'number') {
-                logs[key] = "" + logs[key];
-            }
+          // Value in log is not string data type
+          if (typeof logs[key] === 'number') {
+              logs[key] = "" + logs[key];
+          }
+          if (logs[key] === null) {
+            logs[key] = ""
+          }
+          if(Object.prototype.toString.call(logs[key]) === '[object Object]'){
+            logs[key] = JSON.stringify(logs[key])
+          }
         }
         return logs
     }
