@@ -1,10 +1,10 @@
-import { injectJsError } from '../src/webTracker/jsError';
-import { injectXHR } from '../src/webTracker/xhr';
-import { injectConsoleError } from "./webTracker/console"
-import { injectBlankScreen } from '../src/webTracker/blankScreen';
-import { injectPerf } from './webTracker/perf';
-import { injectLongTask } from '../src/webTracker/longTask';
-import { injectPv } from '../src/webTracker/pv';
+import { injectJsError } from '../src/tracker/jsError';
+import { injectXHR } from '../src/tracker/xhr';
+import { injectConsoleError } from "./tracker/console"
+import { injectBlankScreen } from '../src/tracker/blankScreen';
+import { injectPerf } from './tracker/perf';
+import { injectLongTask } from '../src/tracker/longTask';
+import { injectPv } from '../src/tracker/pv';
 import log from '../src/log/log';
 import excuteQueue from '../src/log/excuteQueue'
 import { merge } from './util/index';
