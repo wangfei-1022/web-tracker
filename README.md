@@ -9,7 +9,7 @@ npm install web-tracker --save
 
 1. 引入方式
 
-``` javascript
+```javascript
 import webTracker from 'web-tracker'
 Vue.use(webTracker, {
     host: 'cn-shanghai.log.aliyuncs.com', //必填
@@ -22,11 +22,11 @@ Vue.use(webTracker, {
 
 2. 代码定向埋点
 
-``` javascript
+```javascript
 this.$webTracker.send({
-    logType: 'business', //必传
-    logCode: this.$t('login.logIn'), //必传
-    logName: this.$t('login.logIn'), //必传
+    logType: 'business', //必传（记录的日志类型）
+    logCode: 'login', //必传（记录的日志-行为code）
+    logName: '登录', //必传（记录的日志-行为code name）
     elementType: 'button', //必传
     event: 'click'
 })
@@ -66,7 +66,7 @@ this.$webTracker.send({
 
 ### Request sample
 
-``` javascript
+```javascript
 {
     appCode: "mbp",
     version: "1.0.0",
