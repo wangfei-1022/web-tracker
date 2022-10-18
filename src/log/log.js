@@ -30,7 +30,7 @@ class SendLog {
       if (typeof logs[key] === 'number') {
           logs[key] = "" + logs[key];
       }
-      if (logs[key] === null) {
+      if (logs[key] === null || logs[key] === undefined) {
         logs[key] = ""
       }
       if(Object.prototype.toString.call(logs[key]) === '[object Object]'){
