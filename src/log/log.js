@@ -7,7 +7,7 @@ class SendLog {
   }
 
   init(config) {
-    this.appCode = config.appCode
+    this.appId = config.appId
     this.host = config.host
     this.version = config.version
     this.project = config.host
@@ -17,12 +17,12 @@ class SendLog {
 
   _getData(data = {}) {
     let extraData = {
-        appCode: this.appCode, //项目代码
-        version: this.version,
-        pageTitle: document.title,
-        pageUrl: location.href,
-        timestamp: Date.now(),
-        userAgent: navigator.userAgent
+      appId: this.appId, //项目代码
+      version: this.version,
+      pageTitle: document.title,
+      pageUrl: location.href,
+      timestamp: Date.now(),
+      userAgent: navigator.userAgent
     };
     let logs = { ...extraData, ...data };
     for (let key in logs) {
@@ -41,8 +41,8 @@ class SendLog {
   }
 
   _validate(data) {
-    if (!data.appCode) {
-      clog("请先设置项目代码[appCode]")
+    if (!data.appId) {
+      clog("请先设置项目代码[appId]")
       return false
     }
     if (!data.version) {

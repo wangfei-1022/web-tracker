@@ -4,7 +4,6 @@
 
 npm install web-tracker --save
 
-
 ### 使用
 
 1. 引入方式
@@ -15,7 +14,7 @@ Vue.use(webTracker, {
     host: 'cn-shanghai.log.aliyuncs.com', //必填
     project: 'web-tracker-test', //必填
     logstore: 'web-tracker-test-store', //必填
-    appCode: "TEST_PROJECT", //项目名称 必填
+    appId: "1", //项目名称 必填
     version: "1.0.0", //必填
 })
 ```
@@ -36,7 +35,7 @@ this.$webTracker.send({
 
 | Name        |   Type   | Required  | Description                      |  **Remarks**                                                                      |
 | :----       | :------: | :-------: | :------------------------:       | :----------------:                                                                |
-| appCode     |  string  |    yes    | 项目代码                          | 会员端：mbp, 运营端：mdp                                                           |
+| appId     |  string  |    yes    | 项目代码                          | 会员端：2, 运营端：1                                                           |
 | version     |  string  |    yes    | 项目版本号                        | 1. 0. 0                                                                          |
 | pageTitle   |  string  |    yes    | 页面标题                          |                                                                                   |
 | pageUrl     |  string  |    yes    | 页面地址                          |                                                                                   |
@@ -68,7 +67,7 @@ this.$webTracker.send({
 
 ```javascript
 {
-    appCode: "mbp",
+    appId: "1",
     version: "1.0.0",
     pageTitle: "海通智运-会员平台",
     pageUrl: "http://localhost:8210/login",
