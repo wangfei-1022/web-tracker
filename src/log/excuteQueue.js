@@ -12,19 +12,18 @@ class ExcuteQueue {
       callback,
     })
     if (this.state !== "RUNING") {
-      this.state = "RUNING"
-      this.next()
+      this.run()
     }
   }
 
   run() {
-    this.state = "RUNING"
-    this.next()
-  }
-
-  next() {
+    if(this.list.length <= 0){
+      this.state = "NULL"
+      return
+    }
     var item = this.list.shift()
     if (item && item.data) {
+      this.state = "RUNING"
       log.send(item.data, () => {
         this.state = "NULL"
         if (item.callback && typeof item.callback == "function") {

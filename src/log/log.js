@@ -85,6 +85,7 @@ class SendLog {
     let logs = this._getData(data)
     //校验发送的格式是否合格
     if (!this._validate(logs)) {
+      excuteQueue.run()
       return
     }
     let body = JSON.stringify({
@@ -112,6 +113,7 @@ class SendLog {
     let logs = this._getData(data)
     //校验发送的格式是否合格
     if (!this._validate(logs)) {
+      excuteQueue.run()
       return
     }
     let str = ""
