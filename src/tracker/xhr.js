@@ -1,5 +1,5 @@
 import excuteQueue from "../log/excuteQueue"
-export function injectXHR() {
+export function injectXHR(XHR_ERROR) {
   let XMLHttpRequest = window.XMLHttpRequest
 
   let oldOpen = XMLHttpRequest.prototype.open
@@ -41,9 +41,9 @@ export function injectXHR() {
           params: body || "",
         })
       }
-      this.addEventListener("load", handler("LOAD"), false)
-      this.addEventListener("error", handler("ERROR"), false)
-      this.addEventListener("abort", handler("ABORT"), false)
+      XHR_ERROR && XHR_ERROR.LOAD && this.addEventListener("load", handler("LOAD"), false)
+      XHR_ERROR && XHR_ERROR.ERROR && this.addEventListener("error", handler("ERROR"), false)
+      XHR_ERROR && XHR_ERROR.ABORT && this.addEventListener("abort", handler("ABORT"), false)
     }
     oldSend.apply(this, arguments)
   }

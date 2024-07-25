@@ -2,43 +2,45 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>monitor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>monitor</title>
 </head>
 
 <body>
-    <div id="container">
-        <div class="content">
-            <input type="button" value="点击抛出错误" onclick="btnClick()" />
-            <input type="button" value="点击抛出promise错误" onclick="btnPromiseClick()" />
-        </div>
+  <div id="container">
+    <div class="content">
+      <input type="button" value="点击抛出错误" onclick="btnClick()" />
+      <input type="button" value="点击抛出promise错误" onclick="btnPromiseClick()" />
     </div>
+  </div>
 
-    <script>
-        function btnClick() {
-            window.someVariable.error = 'someVariable';
-        }
-        function btnPromiseClick() {
-            new Promise(function (resolve, reject) {
-                console.log(someVar.some);
-            });
-        }
-    </script>
-    <script src="../dist/web-tracker.min.js"></script>
-    <script>
-        webTracker.init({
-            host: 'cn-shanghai.log.aliyuncs.com',
-            project: 'web-tracker-qa',
-            logstore: 'web-tracker-qa-store',
-            appCode: "TEST",
-            version: '1.0.0'
-        })
-    </script>
-    <script src="../dist/web-tracker.min.js1111"></script>
-    <img src="">
-    <link href="../dist/web-tracker.min.js1111"></link>
-    <img  class="xxx" src="8888">
-   
+  <script>
+    function btnClick() {
+      window.someVariable.error = 'someVariable';
+    }
+    function btnPromiseClick() {
+      new Promise(function (resolve, reject) {
+        console.log(someVar.some);
+      });
+    }
+  </script>
+  <script src="../dist/web-tracker.min.js"></script>
+  <script>
+    webTracker.init({
+      host: 'cn-shanghai.log.aliyuncs.com',
+      project: 'web-tracker-qa',
+      logstore: 'web-tracker-qa-store',
+      appId: "1",
+      version: '1.0.0'
+    })
+  </script>
+  <script src="../dist/web-tracker.min.js1111"></script>
+  <img src="">
+  <link href="../dist/web-tracker.min.js1111">
+  </link>
+  <img class="xxx" src="8888">
+
 </body>
+
 </html>

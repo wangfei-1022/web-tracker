@@ -7,7 +7,7 @@ class SendLog {
   }
 
   init(config) {
-    this.appCode = config.appCode
+    this.appId = config.appId
     this.host = config.host
     this.version = config.version
     this.project = config.host
@@ -17,12 +17,12 @@ class SendLog {
 
   _getData(data = {}) {
     let extraData = {
-        appCode: this.appCode, //项目代码
-        version: this.version,
-        pageTitle: document.title,
-        pageUrl: location.href,
-        timestamp: Date.now(),
-        userAgent: navigator.userAgent
+      appId: this.appId, //项目代码
+      version: this.version,
+      pageTitle: document.title,
+      pageUrl: location.href,
+      timestamp: Date.now(),
+      userAgent: navigator.userAgent
     };
     let logs = { ...extraData, ...data };
     for (let key in logs) {
@@ -30,7 +30,7 @@ class SendLog {
       if (typeof logs[key] === 'number') {
           logs[key] = "" + logs[key];
       }
-      if (logs[key] === null) {
+      if (logs[key] === null || logs[key] === undefined) {
         logs[key] = ""
       }
       if(Object.prototype.toString.call(logs[key]) === '[object Object]'){
@@ -41,8 +41,8 @@ class SendLog {
   }
 
   _validate(data) {
-    if (!data.appCode) {
-      clog("请先设置项目代码[appCode]")
+    if (!data.appId) {
+      clog("请先设置项目代码[appId]")
       return false
     }
     if (!data.version) {
@@ -85,6 +85,7 @@ class SendLog {
     let logs = this._getData(data)
     //校验发送的格式是否合格
     if (!this._validate(logs)) {
+      excuteQueue.run()
       return
     }
     let body = JSON.stringify({
@@ -112,6 +113,7 @@ class SendLog {
     let logs = this._getData(data)
     //校验发送的格式是否合格
     if (!this._validate(logs)) {
+      excuteQueue.run()
       return
     }
     let str = ""
