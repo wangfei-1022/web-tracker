@@ -13,13 +13,17 @@ class WebTracker {
   constructor() {
     this.report = {
       PV: false,
-      PERFORMANCE: false, //性能
-      JS_ERROR: true, //JS
-      XHR_ERROR: true, //接口请求
-      CONSOLE_ERROR: false, //针对vue
-      TIME_ON_PAGE: false, //在线时长
-      LONG_TASK: false, //卡顿
-      BLANK_SCREEN: false, //白屏
+      PERFORMANCE: false, // 性能
+      JS_ERROR: true, // JS
+      XHR_ERROR: {
+        LOAD: true, // 接口请求
+        ERROR: true, // 接口请求
+        ABORT: false // 接口请求
+      },
+      CONSOLE_ERROR: false, // 针对vue
+      TIME_ON_PAGE: false, // 在线时长
+      LONG_TASK: false, // 卡顿
+      BLANK_SCREEN: false // 白屏
     }
   }
 
@@ -43,10 +47,9 @@ class WebTracker {
   }
 
   _init() {
-    //默认监听js错误、资源请求错误、接口请求错误
-    injectJsError()
-    injectXHR()
-    injectConsoleError()
+    injectXHR(this.report.XHR_ERROR)
+    this.report && this.report.JS_ERROR && injectJsError()
+    this.report && this.report.CONSOLE_ERROR && injectConsoleError()
     this.report && this.report.BLANK_SCREEN && injectBlankScreen()
     this.report && this.report.LONG_TASK && injectLongTask()
     this.report && this.report.PERFORMANCE && injectPerf()
