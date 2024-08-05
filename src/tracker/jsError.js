@@ -1,5 +1,5 @@
 import excuteQueue from "../log/excuteQueue"
-import { getSelector, getLastEvent } from "../util/selector"
+import { getSelector, getLastEvent } from "../util/index"
 
 export function injectJsError() {
   window.addEventListener(
