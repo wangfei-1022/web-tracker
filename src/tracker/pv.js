@@ -2,7 +2,7 @@ import excuteQueue from "../log/excuteQueue"
 
 export function injectPv() {
   var connection = navigator.connection
-  excuteQueue.add({
+  excuteQueue.run({
     logType: "monitor",
     logCode: "PV",
     logName: "PV",
@@ -16,7 +16,7 @@ export function injectPv() {
     "unload",
     () => {
       let stayTime = Date.now() - startTime
-      excuteQueue.add({
+      excuteQueue.run({
         logType: "monitor",
         logCode: "STAY_TIME",
         logName: "在线时长",

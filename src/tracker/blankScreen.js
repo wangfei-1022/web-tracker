@@ -39,7 +39,7 @@ export function injectBlankScreen() {
     }
     if (emptyPoints >= 0) {
       let centerElements = document.elementsFromPoint(window.innerWidth / 2, window.innerHeight / 2)
-      excuteQueue.add({
+      excuteQueue.run({
         logType: "monitor",
         logCode: "BLANK_SCREEN",
         logName: "白屏",

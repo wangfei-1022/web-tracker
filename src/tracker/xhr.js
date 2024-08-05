@@ -28,7 +28,7 @@ export function injectXHR(XHR_ERROR) {
           return
         }
         let statusText = this.statusText
-        excuteQueue.add({
+        excuteQueue.run({
           logType: "monitor",
           logCode: "XHR_ERROR",
           logName: "接口错误",
