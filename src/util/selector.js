@@ -6,8 +6,8 @@ let lastEvent
       lastEvent = event
     },
     {
-      capture: true, //capture 控制监听器是在捕获阶段执行还是在冒泡阶段执行
-      passive: true, //passive 的意思是顺从的，表示它不会对事件的默认行为说 no
+      capture: true, 
+      passive: true
     }
   )
 })
