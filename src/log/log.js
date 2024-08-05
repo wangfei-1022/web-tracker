@@ -1,5 +1,4 @@
 import { clog } from "../util/index"
-import excuteQueue from "./excuteQueue"
 
 class SendLog {
   constructor() {
@@ -15,7 +14,7 @@ class SendLog {
     this.url = `https://${config.project}.${config.host}/logstores/${config.logstore}/track`
   }
 
-  _getData(data = {}) {
+  initData(data = {}) {
     let extraData = {
       appId: this.appId, //项目代码
       version: this.version,
@@ -27,20 +26,19 @@ class SendLog {
     let logs = { ...extraData, ...data };
     for (let key in logs) {
       // Value in log is not string data type
-      if (typeof logs[key] === 'number') {
-          logs[key] = "" + logs[key];
-      }
       if (logs[key] === null || logs[key] === undefined) {
         logs[key] = ""
+      } else if (typeof logs[key] === 'number') {
+        logs[key] = "" + logs[key];
       }
-      if(Object.prototype.toString.call(logs[key]) === '[object Object]'){
+      if (Object.prototype.toString.call(logs[key]) === '[object Object]') {
         logs[key] = JSON.stringify(logs[key])
       }
     }
     return logs
   }
 
-  _validate(data) {
+  validate(data) {
     if (!data.appId) {
       clog("请先设置项目代码[appId]")
       return false
@@ -81,13 +79,7 @@ class SendLog {
     }
   }
 
-  sendPost(data = {}, callback) {
-    let logs = this._getData(data)
-    //校验发送的格式是否合格
-    if (!this._validate(logs)) {
-      excuteQueue.run()
-      return
-    }
+  sendPost(logs = {}, callback) {
     let body = JSON.stringify({
       __logs__: [logs],
     })
@@ -97,25 +89,17 @@ class SendLog {
     this.xhr.setRequestHeader("x-log-bodyrawsize", body.length)
     this.xhr.onload = function () {
       if ((this.status >= 200 && this.status <= 300) || this.status == 304) {
-        excuteQueue.run()
         callback && callback()
       }
     }
     this.xhr.onerror = function (error) {
-      excuteQueue.run()
       callback && callback()
       console.log("error", error)
     }
     this.xhr.send(body)
   }
 
-  sendGet(data = {}, callback) {
-    let logs = this._getData(data)
-    //校验发送的格式是否合格
-    if (!this._validate(logs)) {
-      excuteQueue.run()
-      return
-    }
+  sendGet(logs = {}, callback) {
     let str = ""
     Object.keys(logs).forEach(function (key) {
       str += "&" + key + "=" + logs[key]
@@ -125,25 +109,17 @@ class SendLog {
     this.xhr.open("GET", url, true)
     this.xhr.onload = function () {
       if ((this.status >= 200 && this.status <= 300) || this.status == 304) {
-        excuteQueue.run()
         callback && callback()
       }
     }
     this.xhr.onerror = function (error) {
-      //当一个结束之后 进行下一个
-      excuteQueue.run()
       callback && callback()
       console.log("error", error)
     }
     this.xhr.send()
   }
 
-  sendImg(data = {}, callback) {
-    let logs = this._getData(data)
-    //校验发送的格式是否合格
-    if (!this._validate(logs)) {
-      return
-    }
+  sendImg(logs = {}, callback) {
     var str = ""
     Object.keys(logs).forEach(function (key) {
       str += "&" + key + "=" + logs[key]
@@ -151,7 +127,15 @@ class SendLog {
     var img = document.createElement("img")
     img.setAttribute("class", "img-responsive")
     img.src = `https://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
+    img.onload = () => {
+      callback && callback()
+    }
+    img.onerror = (error) => {
+      callback && callback()
+      console.log("error", error)
+    }
   }
 }
 
-export default new SendLog()
+const log = new SendLog()
+export default log

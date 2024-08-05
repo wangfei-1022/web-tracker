@@ -7,7 +7,7 @@ export function injectJsError() {
     function (event) {
       let lastEvent = getLastEvent()
       if (event.target && (event.target.src || event.target.href)) {
-        excuteQueue.add({
+        excuteQueue.run({
           logType: "monitor",
           logCode: "RESOURCE_ERROR",
           logName: "资源加载错误",
@@ -16,7 +16,7 @@ export function injectJsError() {
           elementType: getSelector(event.path || event.target),
         })
       } else {
-        excuteQueue.add({
+        excuteQueue.run({
           logType: "monitor",
           logCode: "JS_ERROR",
           logName: "JS错误",
@@ -58,7 +58,7 @@ export function injectJsError() {
           stack = reason.stack
         }
       }
-      excuteQueue.add({
+      excuteQueue.run({
         logType: "monitor",
         logCode: "PROMISE_ERROR",
         logName: "Promise错误",

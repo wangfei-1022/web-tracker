@@ -6,7 +6,7 @@ export function injectLongTask() {
     list.getEntries().forEach((entry) => {
       if (entry.duration > 100) {
         requestIdleCallback(() => {
-          excuteQueue.add({
+          excuteQueue.run({
             logType: "monitor",
             logCode: "LONG_TASK",
             logName: "卡顿",

@@ -4,7 +4,7 @@ export function injectConsoleError() {
   console.error = (function (origin) {
     return function (info) {
       if (typeof info === "string") {
-        excuteQueue.add({
+        excuteQueue.run({
           logType: "monitor",
           type: "ERROR",
           logCode: "CONSOLE_ERROR",
@@ -13,7 +13,7 @@ export function injectConsoleError() {
           elementType: "page",
         })
       } else if (typeof info === "object") {
-        excuteQueue.add({
+        excuteQueue.run({
           logType: "monitor",
           logCode: "CONSOLE_ERROR",
           logName: "控制台错误",
