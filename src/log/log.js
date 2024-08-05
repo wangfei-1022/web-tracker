@@ -11,7 +11,8 @@ class SendLog {
     this.version = config.version
     this.project = config.host
     this.logstore = config.host
-    this.url = `https://${config.project}.${config.host}/logstores/${config.logstore}/track`
+    this.postUrl = config.url ? config.url : `https://${config.project}.${config.host}/logstores/${config.logstore}/track`
+    this.getUrl = config.url ? config.url : `https://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0`
   }
 
   initData(data = {}) {
@@ -83,7 +84,7 @@ class SendLog {
     let body = JSON.stringify({
       __logs__: [logs],
     })
-    this.xhr.open("POST", this.url, true)
+    this.xhr.open("POST", this.postUrl, true)
     this.xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
     this.xhr.setRequestHeader("x-log-apiversion", "0.6.0")
     this.xhr.setRequestHeader("x-log-bodyrawsize", body.length)
@@ -104,8 +105,7 @@ class SendLog {
     Object.keys(logs).forEach(function (key) {
       str += "&" + key + "=" + logs[key]
     })
-    let url = `https://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
-
+    let url = this.getUrl + str
     this.xhr.open("GET", url, true)
     this.xhr.onload = function () {
       if ((this.status >= 200 && this.status <= 300) || this.status == 304) {
@@ -126,7 +126,7 @@ class SendLog {
     })
     var img = document.createElement("img")
     img.setAttribute("class", "img-responsive")
-    img.src = `https://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0` + str
+    img.src = this.getUrl + str
     img.onload = () => {
       callback && callback()
     }
