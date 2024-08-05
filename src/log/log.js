@@ -11,8 +11,9 @@ class SendLog {
     this.version = config.version
     this.project = config.host
     this.logstore = config.host
-    this.postUrl = config.url ? config.url : `https://${config.project}.${config.host}/logstores/${config.logstore}/track`
-    this.getUrl = config.url ? config.url : `https://${this.project}.${this.host}/logstores/${this.logstore}/track_ua.gif?APIVersion=0.6.0`
+    this.aliyunUrl = `https://${config.project}.${config.host}/logstores/${config.logstore}`
+    this.postUrl = config.url ? config.url : (this.aliyunUrl + '/track')
+    this.getUrl = config.url ? config.url : (this.aliyunUrl + '/track_ua.gif?APIVersion=0.6.0')
   }
 
   initData(data = {}) {
